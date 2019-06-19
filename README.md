@@ -10,4 +10,9 @@
 * [ESP32](https://github.com/sochub/ESP32) 
 * [ESP8266](https://github.com/sochub/ESP8266) 
 
+#### 开发工具
+
+[esp-idf](https://github.com/espressif/esp-idf) 
+
+
 ###  [SoC资源平台](http://www.qitas.cn)   
