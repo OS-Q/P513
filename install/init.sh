@@ -30,7 +30,7 @@ echo $PASSWD | sudo ls &> /dev/null 2>&1
 
 OPTION=$(whiptail --title "ESP Config System" \
 	--menu "$MENUSTR" 20 60 12 --cancel-button Finish --ok-button Select \
-	"0"   "env init" \
+	"0"   "esp env init" \
 	"1"   "source update" \
 	"2"   "make & flash" \
 	"3"   "debug" \
