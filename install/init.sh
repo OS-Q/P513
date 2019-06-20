@@ -30,20 +30,20 @@ echo $PASSWD | sudo ls &> /dev/null 2>&1
 
 OPTION=$(whiptail --title "ESP Config System" \
 	--menu "$MENUSTR" 20 60 12 --cancel-button Finish --ok-button Select \
-	"0"   "toolchain init" \
-	"1"   "update" \
-	"2"   "flash init" \
-	"3"   "commu init" \
+	"0"   "env init" \
+	"1"   "source update" \
+	"2"   "make & flash" \
+	"3"   "debug" \
 	3>&1 1>&2 2>&3)
 	
 
 if [ $OPTION = '0' ]; then
 	clear
 	echo -e "source init\n${Line}"
-	if [ -d  $WorkPath/apt ]; then
-        cd $WorkPath/apt
-		chmod +x ./apt.sh
-		sudo ./apt.sh 
+	if [ -d  $WorkPath/install ]; then
+        cd $WorkPath/install
+		chmod +x ./tools.sh
+		sudo ./tools.sh 
     fi
 	exit 0
 elif [ $OPTION = '1' ]; then
