@@ -41,12 +41,12 @@ OPTION=$(whiptail --title "ESP Env Config System" \
 
 if [ $OPTION = '0' ]; then
 	clear
-	echo -e "xtensa tools\n${Line}"
+	echo -e "AUTO all\n${Line}"
 	if [ -d  $WorkPath/install ]; then
-        cd $WorkPath/install
-		chmod +x ./tools.sh
-		sudo ./tools.sh 
-    fi
+       	 	cd $WorkPath/install
+		./esp8266.sh 
+		./esp32.sh 
+    	fi
 	exit 0
 elif [ $OPTION = '1' ]; then
 	clear
