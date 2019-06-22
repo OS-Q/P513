@@ -48,7 +48,7 @@ if [ $OPTION = '0' ]; then
 		sudo ./tools.sh 
     fi
 	exit 0
-if [ $OPTION = '1' ]; then
+elif [ $OPTION = '1' ]; then
 	clear
 	echo -e "esp8266 tools install\n${Line}"
 	if [ -d  $WorkPath/install ]; then
@@ -57,7 +57,7 @@ if [ $OPTION = '1' ]; then
 		sudo ./esp8266.sh 
     	fi
 	exit 0
-if [ $OPTION = '2' ]; then
+elif [ $OPTION = '2' ]; then
 	clear
 	echo -e "esp32 tools install\n${Line}"
 	if [ -d  $WorkPath/install ]; then
@@ -85,7 +85,7 @@ elif [ $OPTION = '5' ]; then
 	if [ -d  $WorkPath/server ]; then
         cd $WorkPath/server
 
-    fi
+    	fi
 	exit 0
 else
 	whiptail --title "ESP Config System" \
