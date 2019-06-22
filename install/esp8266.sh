@@ -1,7 +1,7 @@
 #!/bin/bash
 shellPath=`pwd`
 
-function get_xtensa-esp8266()
+function get_xtensa_esp8266()
 {
 	if [ ! -d  $shellPath/download ]; then
         cd $shellPath/
@@ -19,4 +19,4 @@ function get_xtensa-esp8266()
 	echo "finish download xtensa-lx106-elf \n${Line}"
 }
 
-get_xtensa-esp8266
+get_xtensa_esp8266
