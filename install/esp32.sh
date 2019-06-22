@@ -1,7 +1,8 @@
 #!/bin/bash
 shellPath=`pwd`
 WorkPath=$shellPath/../..
-function get_xtensa_esp32()
+
+function set_xtensa_esp32()
 {
     	if [ ! -f $shellPath/xtensa-esp32-elf.tar.gz ]; then
 		cd $shellPath
@@ -13,8 +14,12 @@ function get_xtensa_esp32()
 		tar -xzvf $shellPath/xtensa-esp32-elf.tar.gz  -C xtensa-esp32-elf --strip-components 1 
 		echo -e "finish esp32 xtensa-esp32-elf \n${Line}"   	
 	else
-		echo -e "error esp32 xtensa-esp32-elf \n${Line}"
+		echo -e "exist xtensa-esp32-elf folder\n${Line}"
+	fi
+	if [-d  $WorkPath/xtensa-esp32-elf/bin ]; then
+		echo 'export PATH="${WorkPath}/xtensa-esp32-elf/bin:${PATH}"' >> /etc/profile
+		echo -e "export xtensa-esp32-elf path\n${Line}"   	
 	fi
 }
 
-get_xtensa_esp32
+set_xtensa_esp32

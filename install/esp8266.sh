@@ -1,7 +1,8 @@
 #!/bin/bash
 shellPath=`pwd`
 WorkPath=$shellPath/../..
-function get_xtensa_esp8266()
+
+function set_xtensa_esp8266()
 {
     	if [ ! -f $shellPath/xtensa-lx106-elf.tar.gz ]; then
         	cd $shellPath
@@ -13,9 +14,13 @@ function get_xtensa_esp8266()
 		tar -xzvf $shellPath/xtensa-lx106-elf.tar.gz  -C xtensa-lx106-elf --strip-components 1 
 		echo -e "finish esp8266 xtensa-lx106-elf \n${Line}"   	
 	else
-		echo -e "error esp8266 xtensa-lx106-elf \n${Line}"
+		echo -e "exist esp8266 xtensa-lx106-elf \n${Line}"
+	fi
+	if [-d  $WorkPath/xtensa-lx106-elf/bin ]; then
+		echo 'export PATH="${WorkPath}/xtensa-lx106-elf/bin:${PATH}"' >> /etc/profile
+		echo -e "export xtensa-lx106-elf path\n${Line}"   	
 	fi
 	
 }
 
-get_xtensa_esp8266
+set_xtensa_esp8266
