@@ -54,7 +54,7 @@ elif [ $OPTION = '1' ]; then
 	if [ -d  $WorkPath/install ]; then
         cd $WorkPath/install
 		chmod +x ./esp8266.sh
-		sudo ./esp8266.sh 
+		./esp8266.sh 
     	fi
 	exit 0
 elif [ $OPTION = '2' ]; then
@@ -63,7 +63,7 @@ elif [ $OPTION = '2' ]; then
 	if [ -d  $WorkPath/install ]; then
         cd $WorkPath/install
 		chmod +x ./esp32.sh
-		sudo ./esp32.sh 
+		./esp32.sh 
     	fi
 	exit 0
 elif [ $OPTION = '3' ]; then
