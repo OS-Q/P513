@@ -28,9 +28,12 @@ echo $PASSWD | sudo ls &> /dev/null 2>&1
 
 function set_esp8266()
 {
-	if [ -f  $WorkPath/install/esp8266.sh ]; then
-		chmod +x $WorkPath/install/esp8266.sh
-		$WorkPath/install/esp8266.sh 
+	xtensa-lx106-elf-cc
+	ret = $?
+	echo $ret
+	if [ -f  $WorkPath/scripts/esp8266.sh ]; then
+		chmod +x $WorkPath/scripts/esp8266.sh
+		$WorkPath/scripts/esp8266.sh 
 	else
 		echo -e "no exist esp8266.sh \n${Line}"
 	fi
@@ -38,20 +41,39 @@ function set_esp8266()
 
 function set_esp32()
 {
-	if [ -f  $WorkPath/install/esp32.sh ]; then
-		chmod +x $WorkPath/install/esp32.sh
-		$WorkPath/install/esp32.sh 
+	if [ -f  $WorkPath/scripts/esp32.sh ]; then
+		chmod +x $WorkPath/scripts/esp32.sh
+		$WorkPath/scripts/esp32.sh 
     	fi
 }
-
-
+function set_esp_idf()
+{
+	if [ -f  $WorkPath/scripts/esp-idf.sh ]; then
+		chmod +x $WorkPath/scripts/esp-idf.sh
+		$WorkPath/scripts/esp-idf.sh 
+    	fi
+}
+function set_esp8266_rtos()
+{
+	if [ -f  $WorkPath/scripts/esp8266_rtos.sh ]; then
+		chmod +x $WorkPath/scripts/esp8266_rtos.sh
+		$WorkPath/scripts/esp8266_rtos.sh 
+    	fi
+}
+function set_esp8266_sdk()
+{
+	if [ -f  $WorkPath/scripts/esp8266_sdk.sh ]; then
+		chmod +x $WorkPath/scripts/esp8266_sdk.sh
+		$WorkPath/scripts/esp8266_sdk.sh 
+    	fi
+}
 OPTION=$(whiptail --title "ESP Env Config System" \
 	--menu "$MENUSTR" 20 60 12 --cancel-button Finish --ok-button Select \
 	"0"   "AUTO" \
 	"1"   "esp8266 tools" \
 	"2"   "esp32 tools" \
-	"3"   "SDK update" \
-	"4"   "make & flash" \
+	"3"   "esp-idf update" \
+	"4"   "esp8266 rtos" \
 	"5"   "com debug" \
 	3>&1 1>&2 2>&3)
 	
@@ -64,28 +86,28 @@ if [ $OPTION = '0' ]; then
 	exit 0
 elif [ $OPTION = '1' ]; then
 	clear
-	echo -e "esp8266 tools install\n${Line}"
+	echo -e "esp8266 tools scripts\n${Line}"
 	set_esp8266
 	exit 0
 elif [ $OPTION = '2' ]; then
 	clear
-	echo -e "esp32 tools install\n${Line}"
+	echo -e "esp32 tools scripts\n${Line}"
 	set_esp32
 	exit 0
 elif [ $OPTION = '3' ]; then
 	clear
-	echo -e "SDK update\n${Line}"
+	echo -e "esp-idf update\n${Line}"
+	set_esp_idf
 	exit 0	
 elif [ $OPTION = '4' ]; then
 	clear
-	echo -e "make & flash\n${Line}"
+	echo -e "esp8266 rtos\n${Line}"
+	set_esp8266_rtos
 	exit 0
 elif [ $OPTION = '5' ]; then
 	clear
-	echo -e "com debug\n${Line}"
-	if [ -d  $WorkPath/server ]; then
-        cd $WorkPath/server
-
+	echo -e "esp8266 sdk\n${Line}"
+	set_esp8266_sdk
     	fi
 	exit 0
 else
