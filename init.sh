@@ -74,7 +74,7 @@ OPTION=$(whiptail --title "ESP Env Config System" \
 	"2"   "esp32 tools" \
 	"3"   "esp-idf update" \
 	"4"   "esp8266 rtos" \
-	"5"   "com debug" \
+	"5"   "esp8266 sdk" \
 	3>&1 1>&2 2>&3)
 	
 
@@ -82,7 +82,10 @@ if [ $OPTION = '0' ]; then
 	clear
 	echo -e "AUTO all\n${Line}"
 	set_esp32
+	set_esp_idf
 	set_esp8266
+	set_esp8266_sdk
+	set_esp8266_rtos
 	exit 0
 elif [ $OPTION = '1' ]; then
 	clear
