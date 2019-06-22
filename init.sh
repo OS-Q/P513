@@ -28,39 +28,63 @@ echo $PASSWD | sudo ls &> /dev/null 2>&1
 
 
 
-OPTION=$(whiptail --title "ESP Config System" \
+OPTION=$(whiptail --title "ESP Env Config System" \
 	--menu "$MENUSTR" 20 60 12 --cancel-button Finish --ok-button Select \
-	"0"   "esp env init" \
-	"1"   "source update" \
-	"2"   "make & flash" \
-	"3"   "debug" \
+	"0"   "AUTO" \
+	"1"   "esp8266 tools" \
+	"2"   "esp32 tools" \
+	"3"   "SDK update" \
+	"4"   "make & flash" \
+	"5"   "com debug" \
 	3>&1 1>&2 2>&3)
 	
 
 if [ $OPTION = '0' ]; then
 	clear
-	echo -e "source init\n${Line}"
+	echo -e "xtensa tools\n${Line}"
 	if [ -d  $WorkPath/install ]; then
         cd $WorkPath/install
 		chmod +x ./tools.sh
 		sudo ./tools.sh 
     fi
 	exit 0
-elif [ $OPTION = '1' ]; then
+if [ $OPTION = '1' ]; then
 	clear
-	echo -e "driver init\n${Line}"
-	exit 0	
-elif [ $OPTION = '2' ]; then
+	echo -e "esp8266 tools install\n${Line}"
+	if [ -d  $WorkPath/install ]; then
+        cd $WorkPath/install
+		chmod +x ./esp8266.sh
+		sudo ./esp8266.sh 
+    	fi
+	exit 0
+if [ $OPTION = '2' ]; then
 	clear
-	echo -e "system init\n${Line}"
+	echo -e "esp32 tools install\n${Line}"
+	if [ -d  $WorkPath/install ]; then
+        cd $WorkPath/install
+		chmod +x ./esp32.sh
+		sudo ./esp32.sh 
+    	fi
 	exit 0
 elif [ $OPTION = '3' ]; then
 	clear
-	echo -e "config init\n${Line}"
+	echo -e "SDK update\n${Line}"
+	if [ -d  $WorkPath/install ]; then
+        cd $WorkPath/install
+		chmod +x ./esp-idf.sh
+		sudo ./esp-idf.sh 
+    	fi
+	exit 0	
+elif [ $OPTION = '4' ]; then
+	clear
+	echo -e "make & flash\n${Line}"
+	exit 0
+elif [ $OPTION = '5' ]; then
+	clear
+	echo -e "com debug\n${Line}"
 	if [ -d  $WorkPath/server ]; then
         cd $WorkPath/server
-		chmod +x ./server.sh
-		sudo ./server.sh 
+
     fi
 	exit 0
 else

@@ -1,6 +1,7 @@
 #!/bin/bash
 
 echo -e "ESP IDF CONFIG"
+
 shellPath=`pwd`
 cd $shellPath
 git clone -b v3.2 --recursive https://github.com/espressif/esp-idf.git
