@@ -1,9 +1,12 @@
 #!/bin/bash
 shellPath=`pwd`
-WorkPath=$shellPath/../..
+WorkPath=$HOME/espressif
 
 function set_xtensa_esp32()
 {
+    	if [ ! -d $WorkPath ]; then
+		mkdir $WorkPath
+    	fi
     	if [ ! -f $shellPath/xtensa-esp32-elf.tar.gz ]; then
 		cd $shellPath
 		wget -O xtensa-esp32-elf.tar.gz https://dl.espressif.com/dl/xtensa-esp32-elf-linux64-1.22.0-80-g6c4433a-5.2.0.tar.gz
@@ -16,8 +19,9 @@ function set_xtensa_esp32()
 	else
 		echo -e "exist xtensa-esp32-elf folder\n${Line}"
 	fi
-	if [-d  $WorkPath/xtensa-esp32-elf/bin ]; then
-		echo 'export PATH="${WorkPath}/xtensa-esp32-elf/bin:${PATH}"' >> /etc/profile
+	if [ -d  $WorkPath/xtensa-esp32-elf/bin ]; then
+		echo 'export PATH='$WorkPath'/xtensa-esp32-elf/bin:$PATH' >> ~/.bashrc
+		source ~/.bashrc
 		echo -e "export xtensa-esp32-elf path\n${Line}"   	
 	fi
 }

@@ -26,6 +26,23 @@ done
 
 echo $PASSWD | sudo ls &> /dev/null 2>&1
 
+function set_esp8266()
+{
+	if [ -f  $WorkPath/install/esp8266.sh ]; then
+		chmod +x $WorkPath/install/esp8266.sh
+		$WorkPath/install/esp8266.sh 
+	else
+		echo -e "no exist esp8266.sh \n${Line}"
+	fi
+}
+
+function set_esp32()
+{
+	if [ -f  $WorkPath/install/esp32.sh ]; then
+		chmod +x $WorkPath/install/esp32.sh
+		$WorkPath/install/esp32.sh 
+    	fi
+}
 
 
 OPTION=$(whiptail --title "ESP Env Config System" \
@@ -42,38 +59,22 @@ OPTION=$(whiptail --title "ESP Env Config System" \
 if [ $OPTION = '0' ]; then
 	clear
 	echo -e "AUTO all\n${Line}"
-	if [ -d  $WorkPath/install ]; then
-       	 	cd $WorkPath/install
-		./esp8266.sh 
-		./esp32.sh 
-    	fi
+	set_esp32
+	set_esp8266
 	exit 0
 elif [ $OPTION = '1' ]; then
 	clear
 	echo -e "esp8266 tools install\n${Line}"
-	if [ -d  $WorkPath/install ]; then
-        cd $WorkPath/install
-		chmod +x ./esp8266.sh
-		./esp8266.sh 
-    	fi
+	set_esp8266
 	exit 0
 elif [ $OPTION = '2' ]; then
 	clear
 	echo -e "esp32 tools install\n${Line}"
-	if [ -d  $WorkPath/install ]; then
-        cd $WorkPath/install
-		chmod +x ./esp32.sh
-		./esp32.sh 
-    	fi
+	set_esp32
 	exit 0
 elif [ $OPTION = '3' ]; then
 	clear
 	echo -e "SDK update\n${Line}"
-	if [ -d  $WorkPath/install ]; then
-        cd $WorkPath/install
-		chmod +x ./esp-idf.sh
-		sudo ./esp-idf.sh 
-    	fi
 	exit 0	
 elif [ $OPTION = '4' ]; then
 	clear
