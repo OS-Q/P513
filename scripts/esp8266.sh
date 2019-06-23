@@ -21,7 +21,7 @@ function set_xtensa_esp8266()
 	fi
 	if [ -d  $WorkPath/xtensa-lx106-elf/bin ]; then
 		echo 'export PATH='$WorkPath'/xtensa-lx106-elf/bin:$PATH' >> ~/.bashrc
-		source ~/.bashrc
+		source  ~/.bashrc
 		echo -e "export xtensa-lx106-elf path\n${Line}"   	
 	fi	
 }

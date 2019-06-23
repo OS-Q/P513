@@ -26,6 +26,13 @@ done
 
 echo $PASSWD | sudo ls &> /dev/null 2>&1
 
+function apt_install()
+{
+	sudo apt install -y gcc wget make flex bison gperf gawk grep
+	sudo apt install -y gettext automake flex texinfo libtool libtool-bin libncurses-dev 
+	sudo apt install -y python python-dev python-pip python-setuptools python-serial python-cryptography python-future
+}
+
 function set_esp8266()
 {
 	xtensa-lx106-elf-cc
@@ -99,7 +106,8 @@ elif [ $OPTION = '2' ]; then
 	exit 0
 elif [ $OPTION = '3' ]; then
 	clear
-	echo -e "esp-idf update\n${Line}"
+	echo -e "esp-idf install\n${Line}"
+	apt_install
 	set_esp_idf
 	exit 0	
 elif [ $OPTION = '4' ]; then
