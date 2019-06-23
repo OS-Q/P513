@@ -62,7 +62,6 @@ function set_esp32()
 		if [ -f  $WorkPath/scripts/esp32.sh ]; then
 			chmod +x $WorkPath/scripts/esp32.sh
 			$WorkPath/scripts/esp32.sh 
-	    	fi
 		else
 			echo -e "no exist esp32.sh \n${Line}"
 		fi
