@@ -31,6 +31,7 @@ function apt_install()
 	sudo apt install -y gcc wget make flex bison gperf gawk grep
 	sudo apt install -y gettext automake flex texinfo libtool libtool-bin libncurses-dev 
 	sudo apt install -y python python-dev python-pip python-setuptools python-serial python-cryptography python-future
+	sudo apt autoremove
 }
 
 function set_esp8266()
