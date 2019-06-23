@@ -36,23 +36,39 @@ function apt_install()
 
 function set_esp8266()
 {
-	xtensa-lx106-elf-cc
-	ret = $?
-	echo $ret
-	if [ -f  $WorkPath/scripts/esp8266.sh ]; then
-		chmod +x $WorkPath/scripts/esp8266.sh
-		$WorkPath/scripts/esp8266.sh 
+	str="xtensa-lx106-elf-cc :    "
+	ret=`whereis xtensa-lx106-elf-cc`
+	#echo ${#ret}
+	#echo ${#str}
+	if [ ${#ret} -lt ${#str} ]; then
+		if [ -f  $WorkPath/scripts/esp8266.sh ]; then
+			chmod +x $WorkPath/scripts/esp8266.sh
+			#$WorkPath/scripts/esp8266.sh 
+		else
+			echo -e "no exist esp8266.sh \n${Line}"
+		fi
 	else
-		echo -e "no exist esp8266.sh \n${Line}"
+		echo -e "have config xtensa-lx106-elf path \n${Line}"
 	fi
 }
 
 function set_esp32()
 {
-	if [ -f  $WorkPath/scripts/esp32.sh ]; then
-		chmod +x $WorkPath/scripts/esp32.sh
-		$WorkPath/scripts/esp32.sh 
-    	fi
+	str="xtensa-esp32-elf-cc :    "
+	ret=`whereis xtensa-esp32-elf-cc`
+	#echo ${#ret}
+	#echo ${#str}
+	if [ ${#ret} -lt ${#str} ]; then
+		if [ -f  $WorkPath/scripts/esp32.sh ]; then
+			chmod +x $WorkPath/scripts/esp32.sh
+			$WorkPath/scripts/esp32.sh 
+	    	fi
+		else
+			echo -e "no exist esp32.sh \n${Line}"
+		fi
+	else
+		echo -e "have config xtensa-esp32-elf path \n${Line}"
+	fi
 }
 function set_esp_idf()
 {
