@@ -4,7 +4,7 @@ export WorkPath=`pwd`
 
 ## Root Password
 for ((i = 0; i < 5; i++)); do
-	PASSWD=$(whiptail --title "ESP Config System" \
+	PASSWD=$(whiptail --title "espressif config system" \
 		--passwordbox "Enter root password. Don't use root or sudo run it" \
 		10 60 3>&1 1>&2 2>&3)
 	if [ $i = "4" ]; then
@@ -37,46 +37,46 @@ function apt_install()
 	sudo apt install -y python python-dev python-pip python-setuptools python-serial python-cryptography python-future
 	sudo apt autoremove -y 
 }
-function set_esp8266()
+
+function set_esp8266_gcc()
 {
-	str="xtensa-lx106-elf-cc :    "
+	str="xtensa-lx106-elf-cc :  "
 	ret=`whereis xtensa-lx106-elf-cc`
-	#echo ${#ret}
-	#echo ${#str}
 	if [ ${#ret} -lt ${#str} ]; then
-		if [ -f  $WorkPath/scripts/esp8266.sh ]; then
-			chmod +x $WorkPath/scripts/esp8266.sh
-			#$WorkPath/scripts/esp8266.sh 
+		if [ -f  $WorkPath/scripts/xtensa-lx106.sh ]; then
+			chmod +x $WorkPath/scripts/xtensa-lx106.sh
+			$WorkPath/scripts/xtensa-lx106.sh
+			source  ~/.bashrc
 		else
-			echo -e "no exist esp8266.sh \n${Line}"
+			echo -e "no exist xtensa-lx106.sh \n${Line}"
 		fi
 	else
-		echo -e "have config xtensa-lx106-elf path \n${Line}"
+		echo -e "have config xtensa-lx106 gcc\n${Line}"
 	fi
 }
 
-function set_esp32()
+function set_esp32_gcc()
 {
 	str="xtensa-esp32-elf-cc :    "
 	ret=`whereis xtensa-esp32-elf-cc`
-	#echo ${#ret}
-	#echo ${#str}
 	if [ ${#ret} -lt ${#str} ]; then
-		if [ -f  $WorkPath/scripts/esp32.sh ]; then
-			chmod +x $WorkPath/scripts/esp32.sh
-			$WorkPath/scripts/esp32.sh 
+		if [ -f  $WorkPath/scripts/xtensa-esp32.sh ]; then
+			chmod +x $WorkPath/scripts/xtensa-esp32.sh
+			$WorkPath/scripts/xtensa-esp32.sh 
+			source  ~/.bashrc
 		else
-			echo -e "no exist esp32.sh \n${Line}"
+			echo -e "no shell xtensa-esp32.sh \n${Line}"
 		fi
 	else
-		echo -e "have config xtensa-esp32-elf path \n${Line}"
+		echo -e "have config xtensa-esp32 gcc\n${Line}"
 	fi
 }
 function set_esp_idf()
 {
-	if [ -f  $WorkPath/scripts/esp-idf.sh ]; then
-		chmod +x $WorkPath/scripts/esp-idf.sh
-		$WorkPath/scripts/esp-idf.sh 
+	if [ -f  $WorkPath/scripts/esp_idf.sh ]; then
+		chmod +x $WorkPath/scripts/esp_idf.sh
+		$WorkPath/scripts/esp_idf.sh
+		source  ~/.bashrc
     	fi
 }
 function set_esp8266_rtos()
@@ -84,65 +84,99 @@ function set_esp8266_rtos()
 	if [ -f  $WorkPath/scripts/esp8266_rtos.sh ]; then
 		chmod +x $WorkPath/scripts/esp8266_rtos.sh
 		$WorkPath/scripts/esp8266_rtos.sh 
+		source  ~/.bashrc
     	fi
 }
-function set_esp8266_sdk()
+function set_esp8266_rtos_v2()
+{
+	if [ -f  $WorkPath/scripts/esp8266_rtos.sh ]; then
+		chmod +x $WorkPath/scripts/esp8266_rtos_v2.sh
+		$WorkPath/scripts/esp8266_rtos_v2.sh 
+		source ~/.bashrc
+    	fi
+}
+function set_esp8266_nosdk()
 {
 	if [ -f  $WorkPath/scripts/esp8266_sdk.sh ]; then
-		chmod +x $WorkPath/scripts/esp8266_sdk.sh
-		$WorkPath/scripts/esp8266_sdk.sh 
+		chmod +x $WorkPath/scripts/esp8266_nosdk.sh
+		$WorkPath/scripts/esp8266_nosdk.sh 
+		source  ~/.bashrc
     	fi
 }
-OPTION=$(whiptail --title "ESP Env Config System" \
+
+function set_esp8266_nosdk_v2()
+{
+	if [ -f  $WorkPath/scripts/esp8266_nosdk_v2.sh ]; then
+		chmod +x $WorkPath/scripts/esp8266_nosdk_v2.sh
+		$WorkPath/scripts/esp8266_nosdk_v2.sh 
+		source  ~/.bashrc
+    	fi
+}
+
+OPTION=$(whiptail --title "espressif config system" \
 	--menu "$MENUSTR" 20 60 12 --cancel-button Finish --ok-button Select \
-	"0"   "AUTO" \
-	"1"   "esp8266 tools" \
-	"2"   "esp32 tools" \
-	"3"   "esp-idf update" \
-	"4"   "esp8266 rtos" \
-	"5"   "esp8266 sdk" \
+	"0"   "AUTO ESP8266" \
+	"1"   "AUTO ESP32" \
+	"2"   "GCC tools" \
+	"3"   "esp-idf" \
+	"4"   "esp8266 RTOS V3" \
+	"5"   "esp8266 RTOS V2" \
+	"6"   "esp8266 NOSDK V3" \
+	"7"   "esp8266 NOSDK V2" \
 	3>&1 1>&2 2>&3)
-	
+
+# config port user mod	
+apt_install
+port_config
 
 if [ $OPTION = '0' ]; then
 	clear
-	echo -e "AUTO all\n${Line}"
-	set_esp32
-	set_esp_idf
-	set_esp8266
-	set_esp8266_sdk
-	set_esp8266_rtos
-	port_config
+	echo -e "AUTO ESP8266\n${Line}"
+	set_esp8266_gcc
+	set_esp8266_rtos	
 	exit 0
 elif [ $OPTION = '1' ]; then
 	clear
-	echo -e "esp8266 tools scripts\n${Line}"
-	set_esp8266
+	echo -e "AUTO ESP32\n${Line}"
+	set_esp32_gcc
+	set_esp_idf
 	exit 0
 elif [ $OPTION = '2' ]; then
 	clear
-	echo -e "esp32 tools scripts\n${Line}"
-	set_esp32
+	echo -e "GCC tools\n${Line}"
+	set_esp8266_gcc
+	set_esp32_gcc
 	exit 0
 elif [ $OPTION = '3' ]; then
 	clear
-	echo -e "esp-idf install\n${Line}"
-	apt_install
+	echo -e "esp-idf\n${Line}"
 	set_esp_idf
 	exit 0	
 elif [ $OPTION = '4' ]; then
 	clear
-	echo -e "esp8266 rtos\n${Line}"
+	echo -e "config ESP8266 RTOS V3\n${Line}"
 	set_esp8266_rtos
 	exit 0
 elif [ $OPTION = '5' ]; then
 	clear
-	echo -e "esp8266 sdk\n${Line}"
-	set_esp8266_sdk
+	echo -e "config ESP8266 RTOS V2\n${Line}"
+	set_esp8266_rtos_v2
+    	fi
+	exit 0
+elif [ $OPTION = '6' ]; then
+	clear
+	echo -e "config ESP8266 NOSDK V3\n${Line}"
+	set_esp8266_nosdk
+    	fi
+	exit 0
+elif [ $OPTION = '7' ]; then
+	clear
+	echo -e "config ESP8266 NOSDK V2\n${Line}"
+	set_esp8266_nosdk_v2
     	fi
 	exit 0
 else
-	whiptail --title "ESP Config System" \
+	whiptail --title "espressif config system" \
 		--msgbox "Please select correct option" 10 50 0
 	exit 0
 fi
