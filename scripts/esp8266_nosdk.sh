@@ -7,12 +7,12 @@ function set_esp8266_sdk()
     	if [ ! -d $SDKPath ]; then
 		mkdir $SDKPath
     	fi
-	cd $SDKPath
-	#git clone --depth=1 https://github.com/espressif/ESP8266_NONOS_SDK.git
-	git clone --depth=1 https://github.com/espressif/ESP8266_NONOS_SDK.git
-	cd $SDKPath/ESP8266_NONOS_SDK
-	if [ -f $SDKPath/ESP8266_NONOS_SDK/Makefile ]; then		
-		echo 'export IDF_PATH='$SDKPath'/ESP8266_NONOS_SDK' >> ~/.bashrc
+	if [ ! -d $SDKPath/ESP8266_NONOS_V3 ]; then	
+		cd $SDKPath
+		git clone --depth=1 https://github.com/espressif/ESP8266_NONOS_SDK.git ESP8266_NONOS_V3
+	fi
+	if [ -d $SDKPath/ESP8266_NONOS_V3 ]; then		
+		echo 'export IDF_PATH='$SDKPath'/ESP8266_NONOS_V3' >> ~/.bashrc
 		source  ~/.bashrc
 		echo -e "done ESP8266_NONOS_SDK path !\n${Line}"   	
 	else
