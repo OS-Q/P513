@@ -26,6 +26,10 @@ done
 
 echo $PASSWD | sudo ls &> /dev/null 2>&1
 
+function port_config()
+{
+	sudo usermod -a -G dialout $USER 
+}
 function apt_install()
 {
 	sudo apt install -y gcc wget make flex bison gperf gawk grep
@@ -33,7 +37,6 @@ function apt_install()
 	sudo apt install -y python python-dev python-pip python-setuptools python-serial python-cryptography python-future
 	sudo apt autoremove -y 
 }
-
 function set_esp8266()
 {
 	str="xtensa-lx106-elf-cc :    "
@@ -109,6 +112,7 @@ if [ $OPTION = '0' ]; then
 	set_esp8266
 	set_esp8266_sdk
 	set_esp8266_rtos
+	port_config
 	exit 0
 elif [ $OPTION = '1' ]; then
 	clear
