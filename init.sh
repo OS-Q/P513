@@ -97,7 +97,7 @@ function set_esp8266_rtos_v2()
 }
 function set_esp8266_nosdk()
 {
-	if [ -f  $WorkPath/scripts/esp8266_sdk.sh ]; then
+	if [ -f  $WorkPath/scripts/esp8266_nosdk.sh ]; then
 		chmod +x $WorkPath/scripts/esp8266_nosdk.sh
 		$WorkPath/scripts/esp8266_nosdk.sh 
 		source  ~/.bashrc
