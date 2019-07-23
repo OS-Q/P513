@@ -101,6 +101,7 @@ function set_esp8266_nosdk()
 		chmod +x $WorkPath/scripts/esp8266_nosdk.sh
 		$WorkPath/scripts/esp8266_nosdk.sh 
 		source  ~/.bashrc
+		gedit  ~/.bashrc
     	fi
 }
 
