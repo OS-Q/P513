@@ -1,6 +1,6 @@
 #!/bin/bash
 shellPath=`pwd`
-SDKPath=$HOME/espressif
+SDKPath=$HOME/toolchain/espressif
 
 function set_esp8266_rtos_v2()
 {

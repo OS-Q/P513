@@ -1,6 +1,6 @@
 #!/bin/bash
 shellPath=`pwd`
-IDFPath=$HOME/espressif
+IDFPath=$HOME/toolchain/espressif
 
 function set_esp_idf()
 {

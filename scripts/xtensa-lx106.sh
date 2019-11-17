@@ -1,6 +1,6 @@
 #!/bin/bash
 shellPath=`pwd`
-WorkPath=$HOME/espressif
+WorkPath=$HOME/toolchain/espressif
 
 function set_xtensa_esp8266_gcc()
 {
