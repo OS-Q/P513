@@ -8,8 +8,8 @@ on:
     branches:
       - master
 env:
-  MONT: "${{ env.MONT }}"
-  PLAT: "${{ env.PLAT }}"
+  MONT: "M03"
+  PLAT: "P51"
   TEMP: "F51"
 
 jobs:
