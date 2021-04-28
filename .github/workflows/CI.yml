@@ -1,12 +1,12 @@
 name: daily
 
-# on:
-#   schedule:
-#     - cron: "0 12 * * *"
 on:
-  push:
-    branches:
-      - master
+  schedule:
+    - cron: "0 1 * * *"
+# on:
+#   push:
+#     branches:
+#       - master
 env:
   MONT: "M03"
   PLAT: "P51"
@@ -34,7 +34,7 @@ jobs:
       - name: Install
         run: |
           pip install -U https://github.com/OS-Q/${{ env.MONT }}/releases/latest/download/qio.zip
-          qio platform install https://github.com/OS-Q/${{ env.PLAT }}/archive/package.zip
+          qio platform install https://github.com/OS-Q/${{ env.PLAT }}/archive/master.zip
 
       - name: Checkout templete
         uses: actions/checkout@v2
@@ -51,13 +51,6 @@ jobs:
           qio run -d ${{ matrix.template }}
           cp -rf ${{ matrix.template }}/.pio/build/**/*.bin build
           cp -rf ${{ matrix.template }}/.pio/build/**/*.hex build
-
-      - name: output firmware
-        if: env.UPLOAD_BUILD
-        uses: actions/upload-artifact@v2
-        with:
-          name: firmware_${{ matrix.template }}
-          path: build
 
       - name: Setup Folder
         if: success()
