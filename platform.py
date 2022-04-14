@@ -79,10 +79,10 @@ class P513Platform(PlatformBase):
             ):
                 self.packages.pop(toolchain, None)
 
-        if mcu in ("esp32s2", "ESP32S3"):
+        if mcu in ("esp32s2", "esp32c3"):
             self.packages.pop(xtensa32_toolchain, None)
             self.packages.pop("toolchain-esp32ulp", None)
-            # RISC-V based toolchain for ESP32S3 and ESP32S2 ULP
+            # RISC-V based toolchain for ESP32C3 and ESP32S2 ULP
             self.packages[riscv_toolchain]["optional"] = False
             if mcu == "esp32s2":
                 self.packages[xtensa32s2_toolchain]["optional"] = False
